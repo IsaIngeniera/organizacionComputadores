@@ -16,7 +16,7 @@
    - [3.3 CPU](#34-cpu)
    - [3.4 Memory](#35-memory)
    - [3.5 Computer](#36-computer)
-4. [Design](#4-Arquitectura de la instrucción)
+4. [Design](#4-Arquitectura-de-la-instrucción)
 5. [Como ejecutar el proyecto](#5-como-ejecutar-el-proyecto)
 6. [Colaboradores](#6-colaboradores)
 
