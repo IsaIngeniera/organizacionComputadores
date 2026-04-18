@@ -1,0 +1,50 @@
+/*********
+ * CPU.hdl 
+ * Autor 1: Isabella Ocampo Sánchez
+ * Autor 2: Isabella Cadavid Posada
+ *********/
+
+CHIP CPU {
+    IN  inM[16], instruction[16], reset;
+    OUT outM[16], writeM, addressM[15], pc[15];
+    PARTS:
+    // Debemos saber si es una instrucción tipo A o C mirando el bit 15
+    Not(in=instruction[15], out=esTipoA);
+    Not(in=esTipoA, out=esTipoC);
+    // Si es tipo C y donde guardaremos es en el registro A, 
+    // entra resultado de la ALU. Si no, entra la instrucción
+    And(a=esTipoC, b=instruction[5], out=ALUhaciaA);
+    Mux16(a=instruction, b=salidaALU, sel=ALUhaciaA, out=entradaA);
+    
+    // Guardamos en A si es instrucción A o si la ALU manda a guardar
+    Or(a=esTipoA, b=ALUhaciaA, out=cargarA);
+    ARegister(in=entradaA, load=cargarA, out=salidaA, out[0..14]=addressM);
+    // Guardamos en D si es instrucción C y d2 es 1
+    And(a=esTipoC, b=instruction[4], out=cargarD);
+    DRegister(in=salidaALU, load=cargarD, out=salidaD);
+    // Elegimos entre A o M con el bit a (instruction[12])
+    Mux16(a=salidaA, b=inM, sel=instruction[12], out=entradaAOM);
+    // Llamado a la ALU
+    ALU(x=salidaD, y=entradaAOM, 
+        zx=instruction[11], nx=instruction[10], 
+        zy=instruction[9],  ny=instruction[8], 
+        f=instruction[7],   no=instruction[6], 
+        out=salidaALU, out=outM, 
+        zr=cero, ng=negativo);
+    // writeM para habilitar guardado en la memoria RAM (d3)
+    And(a=esTipoC, b=instruction[3], out=writeM);
+    // Lógica de los saltos con el PC
+    // Primero sacar si es positivo estricto (>0)
+    Or(a=negativo, b=cero, out=menorOIgualACero);
+    Not(in=menorOIgualACero, out=positivo);
+    // Revisar los bits j1, j2, j3 con las banderas de la ALU
+    And(a=instruction[2], b=negativo, out=saltoMenor);
+    And(a=instruction[1], b=cero,     out=saltoIgual);
+    And(a=instruction[0], b=positivo, out=saltoMayor);
+    Or(a=saltoMenor, b=saltoIgual, out=saltoMenorOIgual);
+    Or(a=saltoMenorOIgual, b=saltoMayor, out=quiereSaltar);
+    // Solo salta si es una instrucción tipo C válida
+    And(a=esTipoC, b=quiereSaltar, out=hacerSalto);
+    Not(in=hacerSalto, out=noSaltar);
+    PC(in=salidaA, load=hacerSalto, inc=noSaltar, reset=reset, out[0..14]=pc);
+}

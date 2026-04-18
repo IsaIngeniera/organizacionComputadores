@@ -1,5 +1,18 @@
 # Historial de Cambios
 
+## [1.1.0] - 2026-04-17
+
+### Agregado
+* `Memory.hdl`: Implementación del chip para Ram, Pantalla y Teclado.
+* `Memory.md5`: Hash de validación de la memoria con MD5 File Check.
+* `CPU.hdl`: Unidad Central de Procesamiento construida.
+* `CPU.md5`: Hash de validación de la CPU .
+
+### Descripción
+* Se implementó el circuito de la Memoria integrando la RAM16K, Pantalla y Teclado usando un DMux para escritura y un Mux para lectura.
+* Se conectó con éxito la ALU modificada dentro de la CPU.
+* Se implementó la lógica de decodificación de instrucciones (Tipo A y Tipo C).
+
 ## [1.0.0] - 2026-04-16
 
 ### Agregado

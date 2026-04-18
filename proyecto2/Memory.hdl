@@ -1,0 +1,34 @@
+/*********
+ * Chip Memory
+ * Autor 1: Isabella Cadavid Posada 
+ * Autor 2: Isabella Ocampo Sanchéz
+ *
+ * Básicamente, en la memoria se controlan 3 componentes:
+ * La RAM, la Pantalla que serían los píxeles y el Teclado. 
+ *
+ * En el README.md se encontrará la logica completa para la construcción
+ * de este chip. 
+ */
+ 
+CHIP Memory {
+    IN in[16], load, address[15];
+    OUT out[16];
+
+    PARTS:
+	//// Aquí elegiremos donde guardar nuestro dato 
+    // En la memoría, pantalla o teclado
+    DMux4Way(in=load , sel=address[13..14] , a=RAMP1 , b= RAMP2, c=Pantalla , d=Teclado);
+
+    // Como la memoria es tan grande necesitamos un or que nos diga si va para a o para b 
+    Or(a=RAMP1 , b=RAMP2 , out=SalidaEleccionRam );
+    
+    // Luego Se ejecuta el Dmux4Way y se guarda en una de estas 3 partes
+    RAM16K(in=in , load=SalidaEleccionRam , address=address[0..13] , out=SalidaRam );
+    Screen(in=in , load=Pantalla , address= address[0..12], out=SalidaPantalla );
+    Keyboard(out= SalidaTeclado );
+
+    //Ahora necesitamos leer, el mux sigue la logica del dmux, de nuestras 4 opciones elegimos solo una
+    // El selector es el mismo porque me dice cual debo escoger 
+    Mux4Way16(a=SalidaRam , b= SalidaRam, c=SalidaPantalla , d= SalidaTeclado, sel= address[13..14], out= out );
+
+}

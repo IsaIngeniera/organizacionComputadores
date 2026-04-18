@@ -204,12 +204,25 @@ La implementación de la ALU se realiza siguiendo la especificación vista en cl
 **Archivo:** `Memory.hdl`
 
 #### Interfaz
+Este chip es el encargado de manejar todo el almacenamiento de nuestra computadora. Sus conexiones son:
+* **in[16]:** El dato de 16 bits que queremos guardar.
+* **load:** El que nos dice si vamos a escribir (1) o solo a leer (0).
+* **address[15]:** La dirección a la que queremos entrar.
+* **out[16]:** El dato que sale de la memoria hacia la CPU.
 
 #### Mapa de memoria
+Para que la CPU no se confunda, dividimos las direcciones en tres grandes barrios: (barrios como analogía para saber donde está la dirección)
+1. **RAM16K (0 al 16383):** Es el espacio principal para nuestras variables y datos. Ocupa la mitad de toda la memoria. Osea un 50%.
+2. **Screen (16384 al 24575):** Aquí es donde "dibujamos". Cada bit que guardamos aquí se convierte en un píxel blanco o negro en la pantalla. Es un 25%.
+3. **Keyboard (24576):** Un registro especial que nos dice qué tecla está hundiendo el usuario en ese momento. Es un 25%.
 
 #### Logica de diseño
+Para armar este chip, aplicamos tres ideas claves:
 
-
+* **No ponemos el bit 15:** Aunque el sistema es de 16 bits, el bit más significativo (el 15) solo sirve para que la CPU identifique que es una instrucción tipo A. Por eso, al entrar a la memoria, ya sabemos que estamos en el lugar correcto y solo usamos los otros 15 bits (del 0 al 14) para buscar las direcciones.
+* **Uso del DMux4Way para elegir la dirección:** Como el chip DMux4Way divide todo en 4 partes iguales (de 25% cada una) y nuestra RAM es del 50%, lo que hicimos fue asignarle las dos primeras salidas (**a** y **b**) a la RAM. Luego, usamos una compuerta **Or** para unir esos dos cables de "permiso de carga" (load) en uno solo para el chip RAM16K.Esta desición Arquitectónica se creó deibdo a los chips que teniamos antes (DMux4Way) y la forma en la que está estructurado, pues, si bien tenemos 3 partes en la memoria, necesitamos dividir la RAM en 2 partes, y así obtener un total de 4 partes para poder usar el DMux4Way.
+* **La salida con el Mux4Way16:** Para leer los datos, hicimos el proceso inverso. El Mux mira la dirección y elige si lo que debe mostrar afuera es lo que viene de la RAM, de la Pantalla o del Teclado. Como la RAM ocupa las dos primeras posiciones del selector, conectamos la salida de la RAM tanto en la opción **a** como en la **b** del Mux.
+* **El Teclado es especial:** Al teclado no le entra el cable de `in` ni el de `load`, porque nosotros no le escribimos información al teclado, simplemente leemos lo que él nos entrega cuando el usuario digita algo.
 ---
 
 ### 3.5 Computer
