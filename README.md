@@ -230,12 +230,14 @@ Para armar este chip, aplicamos tres ideas claves:
 **Archivo:** `Computer.hdl`
 
 #### Logica de diseño
+Para construir el computador utilizamos 3 elementos clave:
+* **ROM:** Se encarga de almacenar las instrucciones y mandarlas a la CPU como un parametro de entrada.
+* **CPU:** Se encarga de gestionar las operaciones junto a la ALU y decidir 
+    que tipo de instrucción es, (Tipo A o Tipo C). (Y mandar a la memoria a trabajar)  
+* **MEMORY:** Se encarga de guardar valores en el registro M específico, utiliza 
+    el valor que obtuvo la CPU luego de realizar las operaciones. 
 
-
----
-
-## 4. Desing (Arquitectura de la instrucción)
-
+En conclusión, el Computer es el chip que une todos los chips anteriores, y es el encargado de ejecutar las instrucciones del programa, de modo que podemos hacer pruebas más robustas con él.
 
 
 ---
