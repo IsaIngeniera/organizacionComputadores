@@ -1,4 +1,14 @@
 # Historial de Cambios
+## [1.2.0] - 2026-04-18
+
+### Agregado
+* `Computer.hdl`: Implementación del computador uniendo CPU, Memory y ROM.
+* `Computer.md5`: Hash de validación del computador.
+
+### Descripción
+* Se implementó el chip del computador. 
+* Se conectó con éxito la CPU y la Memoria (Chips creados anteriormente).
+* No se utilizarón compuertas lógicas como AND, OR.... Solamente usa los chips que ya creamos.
 
 ## [1.1.0] - 2026-04-17
 
