@@ -56,6 +56,10 @@ Este proyecto implementa la arquitectura del computador Hack, desarrollada en el
 
 ## 3. Chips implementados
 
+En el desarrollo de este proyecto de Organización del Computador, se diseñaron e implementaron los chips del proyecto 2 de organización de computadores mediante el Lenguaje de Descripción de Hardware (HDL). A continuación, se detalla la arquitectura y el propósito de cada uno: 
+https://docs.google.com/document/d/1USXFE6XYVFGMo7dCSvY8bNdL_b0_ivao2cPqWWYyJxk/edit?usp=sharing
+
+
 ### 3.1 Shifter
 
 **Archivo:** `Shifter.hdl`
@@ -101,16 +105,6 @@ La salida `result` se obtiene con un ultimo `Mux`:
 ```
 Mux(a = in[15], b = in[0], sel = direction, out = result)
 ```
-
-#### Tabla de verdad  (ejemplo de 4 bits para claridad)
-
-| `in` | `direction` | `out` | `result` |
-|------|------------|-------|----------|
-| `0110` | `0` | `1100` | `0` |
-| `0110` | `1` | `0011` | `0` |
-| `1001` | `0` | `0010` | `1` |
-| `1001` | `1` | `0100` | `1` |
-
 ---
 
 ### 3.2 ALU
@@ -134,33 +128,6 @@ Mux(a = in[15], b = in[0], sel = direction, out = result)
 | `ng` | 1 bit | Salida | `1` si `out < 0` (bit 15 en 1) |
 | `result` | 1 bit | Salida | Bit desplazado en modo Shifter; `0` en operaciones normales |
 
-#### Operaciones soportadas
-
-La ALU calcula la siguiente función de acuerdo a la combinacion de bits de control:
-
-| `zx` | `nx` | `zy` | `ny` | `f` | `no` | `out` |
-|------|------|------|------|-----|------|-------|
-| 1 | 0 | 1 | 0 | 1 | 0 | 0 |
-| 1 | 1 | 1 | 1 | 1 | 1 | 1 |
-| 1 | 1 | 1 | 0 | 1 | 0 | -1 |
-| 0 | 0 | 1 | 1 | 0 | 0 | x |
-| 1 | 1 | 0 | 0 | 0 | 0 | y |
-| 0 | 0 | 1 | 1 | 0 | 1 | !x |
-| 1 | 1 | 0 | 0 | 0 | 1 | !y |
-| 0 | 0 | 1 | 1 | 1 | 1 | -x |
-| 1 | 1 | 0 | 0 | 1 | 1 | -y |
-| 0 | 1 | 1 | 1 | 1 | 1 | x+1 |
-| 1 | 1 | 0 | 1 | 1 | 1 | y+1 |
-| 0 | 0 | 1 | 1 | 1 | 0 | x-1 |
-| 1 | 1 | 0 | 0 | 1 | 0 | y-1 |
-| 0 | 0 | 0 | 0 | 1 | 0 | x+y |
-| 0 | 1 | 0 | 0 | 1 | 1 | x-y |
-| 0 | 0 | 0 | 1 | 1 | 1 | y-x |
-| 0 | 0 | 0 | 0 | 0 | 0 | x&y |
-| 0 | 1 | 0 | 1 | 0 | 1 | x\|y |
-| 0 | 0 | 0 | 0 | 0 | 1 | shift left x |
-| 0 | 0 | 0 | 0 | 1 | 1 | shift right x |
-
 #### Modo Shifter dentro de la ALU
 
 El Shifter se activa cuando `zx=0`, `nx=0`, `zy=0`, `ny=0` y `no=1`. La combinación de estas cinco señales constituye la firma de activación del modo desplazamiento. Bajo esta condicioó, la señal `f` determina la dirección:
@@ -176,11 +143,6 @@ isShift = (NOT zx) AND (NOT nx) AND (NOT zy) AND (NOT ny) AND no
 
 Cuando `isShift = 1`, la salida final del chip proviene del `Shifter` directamente, sin pasar por la lógica de negacion final (`no`) de la rama ALU. Cuando `isShift = 0`, la salida corresponde a la rama aritmetico-lógica estandar con negación opcional.
 
-#### Calculo de flags
-
-- `ng`: corresponde al bit 15 de `out`. Se obtiene directamente como salida parcial del `Mux16` final, el bit mas significativo.
-- `zr`: se calcula aplicando `Or8Way` sobre los 8 bits bajos y los 8 bits altos de `out`, uniendo ambos resultados con `Or` y negando el resultado.
-
 #### Implementación 
 
 La implementación de la ALU se realiza siguiendo la especificación vista en clase, utilizando los bloques básicos estudiados en el curso de Organización de Computadores. Primero, las entradas `x` e `y` se procesan mediante las señales de control `zx`, `nx`, `zy` y `ny`, que permiten anular o negar los operandos. Luego, se calculan en paralelo las operaciones `AND` y `ADD`, seleccionadas por la señal `f`. Adicionalmente, se integra el chip **Shifter**, el cual opera directamente sobre la entrada `x` y permite realizar desplazamientos a la izquierda o a la derecha, generando también la señal `result` con el bit desplazado. Para activar este modo, se implementa una lógica que detecta la condición específica de control (`zx=nx=zy=ny=0` y `no=1`), permitiendo seleccionar entre la salida normal de la ALU y el resultado del Shifter mediante un multiplexor. Finalmente, se calculan las señales `zr` y `ng` a partir de la salida, manteniendo el comportamiento estándar de la ALU y extendiéndolo con la funcionalidad de corrimiento.
@@ -190,8 +152,6 @@ La implementación de la ALU se realiza siguiendo la especificación vista en cl
 ### 3.3 CPU
 
 **Archivo:** `CPU.hdl`
-
-> La logica interna de este chip se documenta en `design.txt`. Abajo se reserva el espacio para ampliar la descripcion cuando sea requerido.
 
 #### Interfaz
 
@@ -239,9 +199,42 @@ Para construir el computador utilizamos 3 elementos clave:
 
 En conclusión, el Computer es el chip que une todos los chips anteriores, y es el encargado de ejecutar las instrucciones del programa, de modo que podemos hacer pruebas más robustas con él.
 
+---
+## 4. Design.txt
+
+Este documento describe cómo se extendió la arquitectura de la computadora **Hack** para soportar operaciones de desplazamiento de bits (`<<` y `>>`) dentro de las instrucciones tipo C, sin modificar su formato original de 16 bits.
+
+## Problema
+
+La ALU original de Hack **no soporta operaciones shift**, y como todas las operaciones deben pasar por el campo `comp`, era necesario definir una nueva codificación que permitiera:
+
+- Integrar `shift left` y `shift right`
+- Mantener el formato estándar:  
+  `111 a cccccc ddd jjj`
+- No romper la compatibilidad con el diseño existente
+
+## Solución
+
+Se reutilizaron combinaciones específicas del campo `comp` para representar operaciones de desplazamiento.
+
+### Reglas clave:
+
+- `c1` → Selecciona el operando:
+  - `0`: usa `D`
+  - `1`: usa `A` o `M`
+
+- `c2–c5 = 1000` → Firma que identifica operación **shift**
+
+- `c6` → Dirección:
+  - `0`: `<<` (shift izquierda)
+  - `1`: `>>` (shift derecha)
+
+- Bit `a`:
+  - Solo aplica si `c1 = 1`
+  - `0`: usa `A`
+  - `1`: usa `M`
 
 ---
-
 ## 5. Como ejecutar el proyecto
 
 ### Prerrequisitos

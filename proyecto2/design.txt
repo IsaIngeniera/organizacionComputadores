@@ -1,0 +1,114 @@
+================================================================================
+PUNTO #4 – ARQUITECTURA DE LA INSTRUCCIÓN PARA OPERACIONES SHIFT
+================================================================
+
+AUTORES:
+* Isabella Cadavid Posada
+* Isabella Ocampo Sánchez
+
+INSTITUCIÓN: Universidad EAFIT
+CURSO: Organización del Computador
+
+================================================================================
+1. FORMATO BASE DE LA INSTRUCCIÓN TIPO C
+================================================================================
+
+En la arquitectura Hack, las instrucciones tipo C responsables del cómputo y 
+asignación de datos siguen estrictamente el formato de 16 bits:
+
+    111 a cccccc ddd jjj
+
+Donde cada segmento de bits define el comportamiento del procesador:
+* 111    : Código de operación (OpCode) que identifica una instrucción tipo C.
+* a      : Selector de operando para la ALU (0 = Registro A, 1 = Memoria M).
+* cccccc : Campo 'comp' (6 bits) que instruye a la ALU sobre la operación a realizar.
+* ddd    : Campo 'dest' (3 bits) que indica dónde se almacenará el resultado.
+* jjj    : Campo 'jump' (3 bits) que define las condiciones de salto (PC).
+
+================================================================================
+2. PROBLEMA Y JUSTIFICACIÓN
+================================================================================
+
+El conjunto de instrucciones estándar de la plataforma Hack y su ALU original no 
+poseen soporte a nivel de hardware ni de software para realizar operaciones lógicas 
+de desplazamiento de bits (Shift Left '<<' y Shift Right '>>'). 
+
+Dado que el diseño del procesador exige que toda operación pase por la ALU a través 
+del campo 'comp', es imperativo definir una nueva codificación para este campo que 
+permita invocar el módulo Shifter sin alterar la longitud de 16 bits ni el OpCode 
+de las instrucciones tipo C.
+
+================================================================================
+3. SOLUCIÓN PROPUESTA: CODIFICACIÓN DEL CAMPO COMP
+================================================================================
+
+Se define una extensión lógica en el campo 'comp' (bits c1 a c6) combinada con el 
+bit 'a' para representar las operaciones de desplazamiento. 
+
+Reglas de codificación para operaciones Shift:
+
+* c1 (Selector de fuente para Shift):
+  - 0 : El desplazamiento se aplica sobre el registro D.
+  - 1 : El desplazamiento se aplica sobre el registro A o la memoria M.
+
+* c2, c3, c4, c5 (Firma de operación):
+  - Se fijan estáticamente en '1000' para aislar y diferenciar estas instrucciones 
+    de las operaciones aritmético-lógicas tradicionales de la ALU.
+
+* c6 (Dirección del desplazamiento):
+  - 0 : Shift Left  (<< 1)
+  - 1 : Shift Right (>> 1)
+
+* Bit 'a' (Resolución Mux A/M):
+  - Actúa solo si c1=1. 
+  - a = 0 : Se opera sobre el registro A.
+  - a = 1 : Se opera sobre la memoria M.
+
+================================================================================
+4. TABLA DE TRADUCCIÓN: ASSEMBLER A BINARIO
+================================================================================
+
+La siguiente tabla consolida la traducción en bits (a + cccccc) para todos los 
+casos de uso de los comandos shift.
+
+| Operación ASM | Bit 'a' | comp (cccccc) | Instrucción Binaria Completa |
+| ------------- | ------- | ------------- | ---------------------------- |
+| dest = D << 1 |    0    |    010000     | 111 0 010000 ddd jjj         |
+| dest = A << 1 |    0    |    110000     | 111 0 110000 ddd jjj         |
+| dest = M << 1 |    1    |    110000     | 111 1 110000 ddd jjj         |
+| dest = D >> 1 |    0    |    010001     | 111 0 010001 ddd jjj         |
+| dest = A >> 1 |    0    |    110001     | 111 0 110001 ddd jjj         |
+| dest = M >> 1 |    1    |    110001     | 111 1 110001 ddd jjj         |
+
+================================================================================
+5. EJEMPLOS DE TRADUCCIÓN
+================================================================================
+
+A continuación, se detalla el desglose de traducción para dos instrucciones de prueba 
+utilizando la codificación propuesta:
+
+--------------------------------------------------
+Ejemplo 1: D = M << 1
+--------------------------------------------------
+Descripción: Desplaza el valor de M un bit a la izquierda y lo guarda en D.
+
+* OpCode (Tipo C) : 111
+* Bit a (usa M)   : 1
+* comp (M << 1)   : 110000
+* dest (guarda D) : 010
+* jump (sin salto): 000
+
+Binario resultante: 1111110000010000
+
+--------------------------------------------------
+Ejemplo 2: AM = D >> 1
+--------------------------------------------------
+Descripción: Desplaza el valor de D un bit a la derecha y guarda en A y M.
+
+* OpCode (Tipo C) : 111
+* Bit a (usa D)   : 0
+* comp (D >> 1)   : 010001
+* dest (guarda AM): 101
+* jump (sin salto): 000
+
+Binario resultante: 1110010001101000

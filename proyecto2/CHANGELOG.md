@@ -1,4 +1,21 @@
 # Historial de Cambios
+
+## [1.3.0] - 2026-04-18
+
+### Mejorado
+* `README.md`: Se mejoró la redacción y organización de la documentación general del proyecto.
+* Documentación del sistema: Se ampliaron las explicaciones sobre el funcionamiento y la estructura del computador.
+
+### Agregado
+* `design.txt`: Definición del formato binario para instrucciones tipo C con operaciones shift.
+* Se definió la codificación de instrucciones tipo C para incluir comandos `<<` y `>>`.
+
+### Descripción
+* Se realizaron mejoras en la documentación para facilitar la comprensión del proyecto.
+* Se formalizó la especificación del diseño de instrucciones tipo C con soporte para desplazamientos.
+
+---
+
 ## [1.2.0] - 2026-04-18
 
 ### Agregado
