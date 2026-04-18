@@ -22,7 +22,7 @@
 
 ---
 
-## 1. Descripcion general
+## 1. Descripción general
 
 Este proyecto implementa la arquitectura del computador Hack, desarrollada en el curso de Organización de Computadores, mediante la construcción en HDL de sus principales componentes de hardware, siguiendo las especificaciones estudiadas en clase. El desarrollo se realiza con un enfoque jerárquico (bottom-up), en el que cada módulo se implementa y valida de manera independiente antes de su integración en el sistema completo. En este contexto, el proyecto abarca la implementación de los chips **Shifter**, **ALU**, **Memory**, **CPU** y **Computer**, los cuales se presentan en las secciones siguientes.
 
