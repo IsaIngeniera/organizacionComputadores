@@ -50,7 +50,8 @@ Este proyecto implementa la arquitectura del computador Hack, desarrollada en el
 |    ├── CONTRIBUTORS.md      # Colaboradores y roles
 |    ├── CHANGELOG.md         # Historial de cambios
 |    ├── LICENSE              # Licencia del proyecto
-└── README.md            # Este archivo
+|    ├── Proyecto2.pdf        # Documentación completa
+└── README.md                 # Este archivo
 ```
 
 ---
