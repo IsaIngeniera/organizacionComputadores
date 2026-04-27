@@ -56,7 +56,7 @@ Este proyecto implementa la arquitectura del computador Hack, desarrollada en el
 
 ---
 
-## 3. Chips implementados
+## 3. Chips implementados y Documentación
 
 En el desarrollo de este proyecto de Organización del Computador, se diseñaron e implementaron los chips del proyecto 2 mediante el Lenguaje de Descripción de Hardware (HDL). A continuación, se detalla la arquitectura y el propósito de cada uno.
 https://docs.google.com/document/d/1USXFE6XYVFGMo7dCSvY8bNdL_b0_ivao2cPqWWYyJxk/edit?usp=sharing
