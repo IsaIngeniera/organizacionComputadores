@@ -33,23 +33,23 @@ Este proyecto implementa la arquitectura del computador Hack, desarrollada en el
 ```
 [suUsuarioGit]/
 └── organizacionComputadores/
-    ├── proyecto2/
-    │   ├── ALU.hdl          # Unidad Aritmetico-Lógica extendida con Shifter
-    │   ├── ALU.md5          
-    │   ├── Computer.hdl     # Computador Hack completo
-    │   ├── Computer.md5
-    │   ├── CPU.hdl          # Unidad Central de Procesamiento
-    │   ├── CPU.md5
-    │   ├── Memory.hdl       # Memoria principal del sistema
-    │   ├── Memory.md5
-    │   ├── Shifter.hdl      # Chip de desplazamiento de 1 bit
-    │   ├── Shifter.md5
-    │   ├── design.txt       # Documentación de diseño adicional
-    │   └── design.md5
-    ├── CONTRIBUTORS.md      # Colaboradores y roles
-    ├── CHANGELOG.md         # Historial de cambios
-    ├── LICENSE              # Licencia del proyecto
-    └── README.md            # Este archivo
+|    ├── proyecto2/
+|    │   ├── ALU.hdl          # Unidad Aritmetico-Lógica extendida con Shifter
+|    │   ├── ALU.md5          
+|    │   ├── Computer.hdl     # Computador Hack completo
+|    │   ├── Computer.md5
+|    │   ├── CPU.hdl          # Unidad Central de Procesamiento
+|    │   ├── CPU.md5
+|    │   ├── Memory.hdl       # Memoria principal del sistema
+|    │   ├── Memory.md5
+|    │   ├── Shifter.hdl      # Chip de desplazamiento de 1 bit
+|    │   ├── Shifter.md5
+|    │   ├── design.txt       # Documentación de diseño adicional
+|    │   └── design.md5
+|    ├── CONTRIBUTORS.md      # Colaboradores y roles
+|    ├── CHANGELOG.md         # Historial de cambios
+|    ├── LICENSE              # Licencia del proyecto
+└── README.md            # Este archivo
 ```
 
 ---
