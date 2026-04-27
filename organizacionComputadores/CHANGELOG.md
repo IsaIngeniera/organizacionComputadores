@@ -1,5 +1,21 @@
 # Historial de Cambios
 
+## [1.4.0] - 2026-04-27
+
+### Arreglado
+* **Estructura del repositorio:** Se corrigió la ruta de las carpetas principales para cumplir exactamente con la entrega exigida (`[suUsuarioGit]/organizacionComputadores/proyecto2/`).
+
+* **Conflictos de Git:** Se resolvieron conflictos de integración (merge) entre el repositorio local y el remoto.
+
+* **README.md:** Se arregló tabla de contenido y problemas de indentación.
+
+
+### Descripción
+* Se realizaron mejoras en la documentación para facilitar la comprensión del proyecto.
+* Se transformó la ruta para que cumpliera exactamente con la entrega exigida.
+
+
+
 ## [1.3.0] - 2026-04-18
 
 ### Mejorado
