@@ -12,7 +12,7 @@
 
 | Nombre                    | Rol   | Tareas Asignadas                                                                                 | % Contribución |
 |---------------------------|-------|--------------------------------------------------------------------------------------------------|----------------|
-| Isabella Ocampo Sánchez   | Dev   | HackDisassembler, CodeGenerator, pruebas                                                         | 50%            |
+| Isabella Ocampo Sánchez   | Dev   | HackDisassembler, CodeGenerator, pruebas, documentación                                          | 50%            |
 | Isabella Cadavid Posada   | Líder | Coordinación, Parser, SymbolTable, HackAssembler, documentación , Assembler, instrucciones Shift | 50%            |
 
 **Total: 100%**
