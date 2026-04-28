@@ -1,0 +1,29 @@
+/** 
+* Computer.hdl: 
+* Autor 1: Isabella Ocampo Sánchez
+* Autor 2: Isabella Cadavid Posada
+*
+* El computer no tiene salida -- out 
+* - Se compone principalmente de 3 partes (ROM, CPU, MEMORY)
+* - No usa compuertas lógicas como AND, OR.... Solamente usa los chips que ya creamos
+* - Los cablecitos internos de cada chip deben estar conectados entre sí, para
+*   que funcione cada parte. 
+*/
+
+CHIP Computer {
+//  No hay salida --out 
+    IN reset;
+// Se compone de 3 Chips principales 
+    PARTS:
+    // La ROM es la encargada de almacenar las instrucciones y mandarlas a la CPU
+    // como un parametro de entrada
+    ROM32K(address= InstruccionPC , out= SalidaInstruccion );
+
+    // La CPU se encarga de gestionar las operaciones junto a la ALU y decidir 
+    // que tipo de instrucción es, (Tipo A o Tipo C). (Y mandar a la memoria a trabajar)
+    CPU(inM=DatoEntradaCPU , instruction= SalidaInstruccion, reset= reset, outM= SalidaCPU, writeM= escribirEnM, addressM= guardarRAMDireccion, pc= InstruccionPC);
+
+    // La memoria se encarga de guardar valores en el registro M específico, utiliza 
+    // el valor que obtuvo la CPU luego de realizar las operaciones. 
+    Memory(in=SalidaCPU , load= escribirEnM, address= guardarRAMDireccion, out=DatoEntradaCPU );
+}
