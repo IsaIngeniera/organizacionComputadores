@@ -1,4 +1,4 @@
-# Contribución de Miembros
+# Contribución de Miembros Proyecto 2
 
 | Nombre                      | Rol   | Tareas Asignadas                               | % Contrib |
 |-----------------------------|-------|------------------------------------------------|-----------|
@@ -7,3 +7,12 @@
 
 Total: 100%
   
+
+# Contribución de Miembros Proyecto 3 
+
+| Nombre                     | Rol   | Tareas Asignadas                                                                 | % Contribución |
+|---------------------------|-------|----------------------------------------------------------------------------------|----------------|
+| Isabella Ocampo Sánchez   | Dev   | HackDisassembler, CodeGenerator, pruebas                           | 50%            |
+| Isabella Cadavid Posada   | Líder | Coordinación, Parser, SymbolTable, HackAssembler, documentación , Assembler, instrucciones Shift | 50%            |
+
+**Total: 100%**
