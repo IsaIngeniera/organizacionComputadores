@@ -1,0 +1,30 @@
+# ==========================================
+# .gitignore - Proyecto 3 HackAssembler
+# ==========================================
+
+# 1. Archivos compilados de Java (Exigencia del profe)
+*.class
+*.jar
+*.war
+*.ear
+
+# 2. Carpetas de salida de compilación
+# Bloqueamos la carpeta target porque ahí se guardan los .class que generamos
+target/
+bin/
+out/
+
+# 3. Archivos de configuración de VS Code (Para que no haga ruido en el repo)
+.vscode/
+*.code-workspace
+
+# 4. Archivos basura del Sistema Operativo
+Thumbs.db
+desktop.ini
+
+# 5. Archivos de pruebas temporales (Opcional)
+hacktest_*.hack
+hacktest_*.asm
+rt_*.hack
+rt_dis_*.asm
+err_*.asm
