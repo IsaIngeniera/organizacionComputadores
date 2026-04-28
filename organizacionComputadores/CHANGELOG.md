@@ -97,12 +97,12 @@
 
 ## [1.0.2] – 2026-04-28
 
-### Added
+### Agregado
 - Documentación: `Readme.md`, `DESIGN.md`, `CHAGELOG.md`.
 
 ## [1.0.1] – 2026-04-28
 
-### Added
+### Agregado
 - `HackDisassembler.java`: desensamblado de archivos `.hack` a mnemónicos `.asm`.
 - `CodeGenerator.java`: generación de código binario de 16 bits.
 - `HackAssemblerTest.java`: suite de pruebas sin dependencias externas.
@@ -110,7 +110,7 @@
 
 ## [1.0.0] – 2026-04-27
 
-### Added
+### Agregado
 - `HackAssembler.java`: punto de entrada con soporte CLI y menú interactivo.
 - `Assembler.java`: proceso de ensamblado en dos pasadas.
 - `Parser.java`: análisis de instrucciones A, C, Shift y etiquetas.
