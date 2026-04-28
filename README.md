@@ -10,7 +10,7 @@ Este repositorio contiene los 2 proyectos desarrollados para  **Organización de
 
 ---
 
-## 📂 Contenido del Repositorio
+## Contenido del Repositorio
 
 A continuación, se detallan los dos proyectos principales incluidos en este repositorio. Puedes hacer clic en el título de cada proyecto para navegar directamente a su directorio correspondiente.
 
@@ -36,9 +36,9 @@ Este proyecto consiste en el desarrollo de un ensamblador y desensamblador para 
 
 ---
 
-## 🛠️ Tecnologías Utilizadas
+##  Tecnologías Utilizadas
 - **Hardware:** HDL (Hardware Description Language) de la plataforma Nand to Tetris.
 - **Software:** Java para el desarrollo de los traductores.
 
-## 📝 Referencias y Contribuciones
+##  Referencias y Contribuciones
 Para más detalles sobre las versiones, puedes consultar el archivo [CHANGELOG.md](./organizacionComputadores/organizacionComputadores/CHANGELOG.md) y revisar la lista de participantes en [CONTRIBUTORS.md](./organizacionComputadores/organizacionComputadores/CONTRIBUTORS.md).
