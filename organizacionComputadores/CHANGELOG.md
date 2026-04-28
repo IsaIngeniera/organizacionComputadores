@@ -1,4 +1,4 @@
-# Historial de Cambios
+# Historial de Cambios Proyecto 2
 
 ## [1.4.0] - 2026-04-27
 
@@ -91,3 +91,17 @@
 ### Agregado
 
 * Commit inicial con estructura del repositorio
+
+
+# Historial de Cambios Proyecto 3
+
+
+## [1.0.0] – 2026-04-25
+
+### Added
+- `HackAssembler.java`: punto de entrada con soporte CLI y menú interactivo.
+- `Assembler.java`: proceso de ensamblado en dos pasadas.
+- `Parser.java`: análisis de instrucciones A, C, Shift y etiquetas.
+- `SymbolTable.java`: tabla de símbolos con símbolos predefinidos Hack.
+- Soporte para instrucciones Shift Left (`<<`) y Shift Right (`>>`) en ensamblador y desensamblador.
+
