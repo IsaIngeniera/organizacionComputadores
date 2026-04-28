@@ -26,7 +26,7 @@ Este proyecto se centra en la implementación de los componentes de hardware fun
 - **Computer:** La integración final de la CPU, la Memoria y la ROM para formar el computador Hack completo.
 - **Shifter:** Componente para operaciones de desplazamiento de bits.
 
-### 2. [Proyecto 3: Hack Assembler y Disassembler](./organizacionComputadores/proyecto3)
+### 2. [Proyecto 3: Hack Assembler y Disassembler](./organizacionComputadores/proyecto3/HackAssembler)
 Este proyecto consiste en el desarrollo de un ensamblador y desensamblador para el lenguaje de máquina de la arquitectura Hack, implementado en **Java**.
 
 **Características principales:**
