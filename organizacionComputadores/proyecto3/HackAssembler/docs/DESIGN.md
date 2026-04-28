@@ -14,7 +14,8 @@
 4. [Flujo de Desensamblado](#4-flujo-de-desensamblado-de-hack-a-disasm)
 5. [Proceso de Creación de Clases](#5-proceso-de-creacion-de-clases)
 6. [Formatos Binarios](#6-formatos-binarios)
-7. [Decisiones de Diseño](#7-decisiones-de-diseno)
+7. [Decision de Estructura](#7-decision-de-estructura)
+8. [Referencias](#8-referencias)
 
 ---
 
@@ -130,9 +131,9 @@ Bit:  15  14  13  12  11  10   9   8   7   6   5   4   3   2   1   0
 
 ---
 
-## 7. Decisiones de Diseño
+## 7. Decision de Diseño
 
-### Separación de Responsabilidades (SRP)
+### Separación de Responsabilidades 
 
 Cada clase tiene exactamente un rol dentro del sistema:
 
