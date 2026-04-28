@@ -35,6 +35,9 @@ Este proyecto implementa la arquitectura del computador Hack, desarrollada en el
 [suUsuarioGit]/
 └── organizacionComputadores/
 |    ├── proyecto2/
+|    |   ├── docs/
+|    |      ├── README.md
+|    |      ├── Proyecto2.pdf
 |    │   ├── ALU.hdl          # Unidad Aritmetico-Lógica extendida con Shifter
 |    │   ├── ALU.md5
 |    │   ├── Computer.hdl     # Computador Hack completo
