@@ -40,7 +40,6 @@ javac -version
 
 ```
 proyecto3/
-├── README.md
 ├── CHANGELOG.md
 ├── CONTRIBUTORS.md
 ├── LICENSE
