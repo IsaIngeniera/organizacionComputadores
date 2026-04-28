@@ -1,0 +1,136 @@
+/*********
+ * ALU.hdl – ALU (Arithmetic Logic Unit)
+ *
+ * Computes out = one of the following functions:
+ *   0, 1, -1,
+ *   x, y, !x, !y, -x, -y,
+ *   x+1, y+1, x-1, y-1,
+ *   x+y, x-y, y-x,
+ *   x&y, x|y
+ *
+ * Comando Shifter integrado:
+ *   Se activa cuando zx=0, nx=0, zy=0, ny=0, no=1
+ *   La señal f determina la dirección:
+ *     f=0  →  shift izquierda   result = x[15]
+ *     f=1  →  shift derecha     result = x[0]
+ *
+ * Autor 1: Isabella Cadavid Posada
+ * Autor 2: Isabella Ocampo Sánchez
+ *********/
+
+CHIP ALU {
+    IN
+        x[16], y[16],   // Entradas de 16 bits
+        zx,             // Si zx=1, entonces x se convierte en 0´s 
+        nx,             // Si nx=1, niega x (bit a bit) antes de operar
+        zy,             // Si zy=1, entonces y se convierte en 0´s 
+        ny,             // Si ny=1, niega y (bit a bit) antes de operar
+        f,              // Calcula (x + y) o (x & y), o bien desplaza a la izquierda si
+                        // (zx=nx=zy=ny=0, f=0, no=1) o a la derecha si (zx=nx=zy=ny=0, f=1, no=1).
+        no;             // Si no=1, niega la salida
+
+    OUT
+        out[16],        // Resultado de 16 bits
+        zr,             // zr=1  si out == 0
+        ng,             // ng=1  si out < 0  (es decir, out[15] == 1)
+        result;         // En shift left  → x[15] (bit que sale por la izquierda)
+                        // En shift right → x[0]  (bit que sale por la derecha)
+                        // En operaciones normales de la ALU → 0
+
+    PARTS:
+
+    // ─────────────────────────────────────────────────────────────────────────
+    //  PROCESAMIENTO DE X
+    // ─────────────────────────────────────────────────────────────────────────
+
+    Mux16(a=x,   b=false, sel=zx, out=xz);     // zx=1 → x queda en 0
+    Not16(in=xz, out=nxz);                      // prepara la negación de x
+    Mux16(a=xz,  b=nxz,  sel=nx, out=xf);      // nx=1 → aplica negación
+
+    // ─────────────────────────────────────────────────────────────────────────
+    //  PROCESAMIENTO DE Y
+    // ─────────────────────────────────────────────────────────────────────────
+
+    Mux16(a=y,   b=false, sel=zy, out=yz);      // zy=1 → y queda en 0
+    Not16(in=yz, out=nyz);                       // prepara la negación de y
+    Mux16(a=yz,  b=nyz,  sel=ny, out=yf);       // ny=1 → aplica negación
+
+    // ─────────────────────────────────────────────────────────────────────────
+    //  FUNCIÓN ARITMÉTICA (señal f)
+    //    f=0 → AND    andOut = xf & yf
+    //    f=1 → ADD    addOut = xf + yf
+    // ─────────────────────────────────────────────────────────────────────────
+
+    And16(a=xf, b=yf, out=andOut);
+    Add16(a=xf, b=yf, out=addOut);
+    Mux16(a=andOut, b=addOut, sel=f, out=opOut);
+
+    // ─────────────────────────────────────────────────────────────────────────
+    //  SHIFTER
+    //    Opera siempre sobre x original (sin pasar por zx/nx).
+    //    f=0 → shift left:  shiftOut[i]=x[i-1], shiftOut[0]=0,   result=x[15]
+    //    f=1 → shift right: shiftOut[i]=x[i+1], shiftOut[15]=0,  result=x[0]
+    // ─────────────────────────────────────────────────────────────────────────
+
+    Shifter(in=x, direction=f, out=shiftOut, result=shiftResult);
+
+    // ─────────────────────────────────────────────────────────────────────────
+    //  DETECCIÓN DEL MODO SHIFTER
+    //    isShift = 1  cuando  zx=0 AND nx=0 AND zy=0 AND ny=0 AND no=1
+    // ─────────────────────────────────────────────────────────────────────────
+
+    Not(in=zx, out=nzx);
+    Not(in=nx, out=nnx);
+    Not(in=zy, out=nzy);
+    Not(in=ny, out=nny);
+
+    And(a=nzx, b=nnx, out=c1);     // c1 = (zx=0) AND (nx=0)
+    And(a=nzy, b=nny, out=c2);     // c2 = (zy=0) AND (ny=0)
+    And(a=c1,  b=c2,  out=c3);     // c3 = c1 AND c2
+    And(a=c3,  b=no,  out=isShift); // isShift = c3 AND no
+
+    // ─────────────────────────────────────────────────────────────────────────
+    //  NEGACIÓN FINAL DE LA RAMA ALU (señal no)
+    //    no=0 → aluFinal = opOut
+    //    no=1 → aluFinal = notOpOut
+    //
+    //  NOTA: la negación SOLO aplica a la rama ALU normal.
+    //  En modo Shifter, no=1 es la firma de activación, no una negación real,
+    //  por eso shiftOut llega directo al Mux final sin negar.
+    // ─────────────────────────────────────────────────────────────────────────
+
+    Not16(in=opOut, out=notOpOut);
+    Mux16(a=opOut, b=notOpOut, sel=no, out=aluFinal);
+
+    // ─────────────────────────────────────────────────────────────────────────
+    //  SELECCIÓN FINAL: ALU normal vs. Shifter
+    //    isShift=0 → out = aluFinal   (resultado ALU con negación opcional)
+    //    isShift=1 → out = shiftOut   (resultado del desplazamiento, sin negar)
+    // ─────────────────────────────────────────────────────────────────────────
+
+    Mux16(a=aluFinal, b=shiftOut, sel=isShift,
+          out=out,
+          out[15]=ng,
+          out[0..7]=lo8,
+          out[8..15]=hi8);
+
+    // ─────────────────────────────────────────────────────────────────────────
+    //  CÁLCULO DE ZR
+    //    zr=1 si out == 0
+    // ─────────────────────────────────────────────────────────────────────────
+
+    Or8Way(in=lo8, out=orLo);
+    Or8Way(in=hi8, out=orHi);
+    Or(a=orLo, b=orHi, out=notZr);
+    Not(in=notZr, out=zr);
+
+    // ─────────────────────────────────────────────────────────────────────────
+    //  SALIDA result
+    //    isShift=0 → result = 0            
+    //    isShift=1 → result = shiftResult
+    //                shift left:  shiftResult = x[15]
+    //                shift right: shiftResult = x[0]
+    // ─────────────────────────────────────────────────────────────────────────
+
+    Mux(a=false, b=shiftResult, sel=isShift, out=result);
+}
