@@ -1,6 +1,8 @@
-# Organización de Computadores - Proyecto Final
+# Organización de Computadores 
 
-Este repositorio contiene los proyectos desarrollados para la materia de **Organización de Computadores**. El objetivo de este repositorio es unir tanto la construcción de la arquitectura de hardware (basada en el computador Hack) como el desarrollo de herramientas de software fundamentales (Ensamblador y Desensamblador).
+Este repositorio contiene los 2 proyectos desarrollados para  **Organización de Computadores**. El objetivo de este repositorio es unir tanto la construcción de la arquitectura de hardware (basada en el computador Hack) como el desarrollo de herramientas de software (Ensamblador y Desensamblador).
+
+2026-1
 
 ## Autoras
 - [Isabella Cadavid Posada]
