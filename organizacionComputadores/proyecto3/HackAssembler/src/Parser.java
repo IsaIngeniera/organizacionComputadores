@@ -1,14 +1,14 @@
 /*********
  * Parser.java – Analiza líneas individuales de código assembler Hack.
- *   Detecta el tipo de instrucción (A, C, L, Shift) y extrae sus componentes:
- *   destino, cómputo y salto para instrucciones C; símbolo para A y etiquetas;
- *   dirección y tipo de shift para instrucciones de desplazamiento.
+ * Detecta el tipo de instrucción (A, C, L, Shift) y extrae sus componentes:
+ * destino, cómputo y salto para instrucciones C; símbolo para A y etiquetas;
+ * dirección y tipo de shift para instrucciones de desplazamiento.
  *
  * Tipos de instrucción reconocidos:
- *   A_INSTRUCTION     -> @valor o @símbolo
- *   C_INSTRUCTION     -> dest=comp;jump  (instrucción estándar Hack)
- *   SHIFT_INSTRUCTION -> dest=comp<<;jump  o  dest=comp>>;jump  (extensión Hack)
- *   L_INSTRUCTION     -> (ETIQUETA)
+ * A_INSTRUCTION -> @valor o @símbolo
+ * C_INSTRUCTION -> dest=comp;jump (instrucción estándar Hack)
+ * SHIFT_INSTRUCTION -> dest=comp<<;jump o dest=comp>>;jump (extensión Hack)
+ * L_INSTRUCTION -> (ETIQUETA)
  *
  * Autor 1: Isabella Cadavid Posada
  * Autor 2: Isabella Ocampo Sánchez
@@ -18,6 +18,7 @@ public class Parser {
 
     /**
      * Limpia una línea: elimina comentarios y espacios en blanco.
+     * 
      * @param line línea original del archivo
      * @return línea limpia sin comentarios ni espacios extra
      */
@@ -32,12 +33,15 @@ public class Parser {
 
     /**
      * Determina el tipo de instrucción de una línea ya limpiada.
+     * 
      * @param cleanedLine línea sin comentarios y sin espacios extra
      * @param lineNum     número de línea original (para mensajes de error)
-     * @return "A_INSTRUCTION", "C_INSTRUCTION", "SHIFT_INSTRUCTION", "L_INSTRUCTION" o null si error
+     * @return "A_INSTRUCTION", "C_INSTRUCTION", "SHIFT_INSTRUCTION",
+     *         "L_INSTRUCTION" o null si error
      */
     public String instructionType(String cleanedLine, int lineNum) {
-        if (cleanedLine.isEmpty()) return null; // no debería llegar aquí
+        if (cleanedLine.isEmpty())
+            return null; // no debería llegar aquí
 
         if (cleanedLine.startsWith("@")) {
             return "A_INSTRUCTION";
@@ -55,6 +59,7 @@ public class Parser {
 
     /**
      * Extrae el símbolo de una instrucción A (@xxx) o de una etiqueta ((xxx)).
+     * 
      * @param cleanedLine línea limpia
      * @param lineNum     número de línea para mensajes de error
      * @return el símbolo/número como String, o null si hay error
@@ -86,7 +91,8 @@ public class Parser {
 
     /**
      * Extrae el campo dest de una instrucción C o Shift.
-     * Formato: dest=comp;jump  o  comp;jump  o  dest=comp
+     * Formato: dest=comp;jump o comp;jump o dest=comp
+     * 
      * @param cleanedLine línea limpia
      * @return dest como String (puede ser vacío si no hay '=')
      */
@@ -99,7 +105,7 @@ public class Parser {
 
     /**
      * Extrae el campo comp de una instrucción C o Shift.
-     * Para Shift elimina los << o >> del comp antes de retornarlo como base.
+     * 
      * @param cleanedLine línea limpia
      * @return comp como String
      */
@@ -118,6 +124,7 @@ public class Parser {
 
     /**
      * Extrae el campo jump de una instrucción C o Shift.
+     * 
      * @param cleanedLine línea limpia
      * @return jump como String (vacío si no hay ';')
      */
@@ -130,33 +137,46 @@ public class Parser {
 
     /**
      * Para instrucciones Shift: indica si es left (<<) o right (>>).
+     * 
      * @param cleanedLine línea limpia
      * @return "LEFT" o "RIGHT" o null si no es shift
      */
     public String shiftDirection(String cleanedLine) {
-        if (cleanedLine.contains("<<")) return "LEFT";
-        if (cleanedLine.contains(">>")) return "RIGHT";
+        if (cleanedLine.contains("<<"))
+            return "LEFT";
+        if (cleanedLine.contains(">>"))
+            return "RIGHT";
         return null;
     }
 
     /**
      * Extrae el operando de una instrucción Shift (lo que se desplaza).
-     * Ej: "D=D<<;JGT" -> operand = "D"
+     * Ej: "D=D<<1" -> operand = "D"
+     * 
      * @param cleanedLine línea limpia
      * @return el registro/valor a desplazar
      */
     public String shiftOperand(String cleanedLine) {
         String compField = comp(cleanedLine);
-        // Remover << o >>
-        compField = compField.replace("<<", "").replace(">>", "").trim();
-        return compField;
+
+        // Partimos el string por el símbolo y nos quedamos con la primera parte (el
+        // registro)
+        if (compField.contains("<<")) {
+            return compField.split("<<")[0].trim();
+        } else if (compField.contains(">>")) {
+            return compField.split(">>")[0].trim();
+        }
+
+        return compField.trim();
     }
 
     /** Valida que un símbolo sea alfanumérico y no empiece por dígito */
     private boolean isValidSymbol(String sym) {
-        if (sym.isEmpty()) return false;
+        if (sym.isEmpty())
+            return false;
         char first = sym.charAt(0);
-        if (Character.isDigit(first)) return false;
+        if (Character.isDigit(first))
+            return false;
         for (char c : sym.toCharArray()) {
             if (!Character.isLetterOrDigit(c) && c != '_' && c != '.' && c != '$' && c != ':') {
                 return false;
