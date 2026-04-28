@@ -65,13 +65,15 @@ Esta tabla resume el proceso de dos pasadas para convertir código ensamblador e
 | **4. C** | Cómputo | `111` | Genera `dest=comp;jump` |
 | **5. Final** | Escritura | `110` inválido | Guarda archivo |
 
+
 ---
 
 ## 5. Proceso de Creacion de Clases
 
-Este diagrama muestra el orden de implementación y dependencias:
+Este diagrama se realizó con ayuda de inteligencia artificial, con el objetivo de modelar y justificar nuestras desiciones para la construcción del codigo:
+Se adjunta con el objetivo de que sea mas ameno y legible para entender la arquitectura del proyecto.
 
-![Proceso de Creación](https://github.com/user-attachments/assets/f894d423-de6d-4cb0-b839-26e5aa9d095d)
+<img width="766" height="421" alt="image" src="https://github.com/user-attachments/assets/13a674b2-d456-4c5c-bf5b-f37088bc189c" />
 
 * NOTA: Imagen Generada con apoyo de IA 
 
