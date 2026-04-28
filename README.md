@@ -16,7 +16,7 @@ A continuación, se detallan los dos proyectos principales incluidos en este rep
 
 **IMPORTANTE:** Cada proyecto tiene su propia documentación, allí se encontrarán videos explicativos que permiten al usuario entender mejor el contenido.
 
-### 1. [Proyecto 2: Arquitectura de Hardware (Hack Computer)](./organizacionComputadores/organizacionComputadores/proyecto2)
+### 1. [Proyecto 2: Arquitectura de Hardware (Hack Computer)](./organizacionComputadores/proyecto2)
 Este proyecto se centra en la implementación de los componentes de hardware fundamentales del computador Hack utilizando **HDL (Hardware Description Language)**. 
 
 **Componentes principales desarrollados:**
@@ -26,7 +26,7 @@ Este proyecto se centra en la implementación de los componentes de hardware fun
 - **Computer:** La integración final de la CPU, la Memoria y la ROM para formar el computador Hack completo.
 - **Shifter:** Componente para operaciones de desplazamiento de bits.
 
-### 2. [Proyecto 3: Hack Assembler y Disassembler](./organizacionComputadores/organizacionComputadores/proyecto3)
+### 2. [Proyecto 3: Hack Assembler y Disassembler](./organizacionComputadores/proyecto3)
 Este proyecto consiste en el desarrollo de un ensamblador y desensamblador para el lenguaje de máquina de la arquitectura Hack, implementado en **Java**.
 
 **Características principales:**
