@@ -95,13 +95,18 @@
 
 # Historial de Cambios Proyecto 3
 
+## [1.0.2] – 2026-04-28
+
+### Added
+- Documentación: `Readme.md`, `DESIGN.md`, `CHAGELOG.md`.
+
 ## [1.0.1] – 2026-04-28
 
 ### Added
 - `HackDisassembler.java`: desensamblado de archivos `.hack` a mnemónicos `.asm`.
 - `CodeGenerator.java`: generación de código binario de 16 bits.
 - `HackAssemblerTest.java`: suite de pruebas sin dependencias externas.
-- Documentación: `API.md`, `DESIGN.md`, `USER_GUIDE.md`,  `CHAGELOG.md`, `CONTRIBUTORS.md`
+- Documentación: `API.md`,  `USER_GUIDE.md`,  `CHAGELOG.md`, `CONTRIBUTORS.md`
 
 ## [1.0.0] – 2026-04-27
 
