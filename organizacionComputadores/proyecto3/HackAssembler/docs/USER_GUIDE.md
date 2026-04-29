@@ -147,6 +147,7 @@ java HackAssembler -d programs/Add.hack
 ### 3. Menú interactivo
 
 Ejecutar un menú guiado:
+NOTA: Recuerda que debes ejecturar la siguiente instrucción estando en la carpeta src en la ruta. 
 
 ```bash
 java HackAssembler
