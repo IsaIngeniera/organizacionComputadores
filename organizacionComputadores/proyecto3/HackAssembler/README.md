@@ -13,6 +13,7 @@
 4. [ Compilación y Ejecución Rápida](#4-Compilación-y-Ejecución-Rápida)
 5. [Documentación](#7-Documentación)
 6. [Verificación de Integridad (MD5)](#6-verificación-de-integridad-md5)
+7. [Videos de prueba](#6-Videos-de-prueba)
 
 ---
 
@@ -103,6 +104,13 @@ Para instrucciones detalladas de instalación, compilación con Maven y ejemplos
 ## 6. Verificación de Integridad
 
 Cada archivo `.java` tiene su `.md5` asociado. Para verificar: [https://emn178.github.io/online-tools/md5_checksum.html](https://emn178.github.io/online-tools/md5_checksum.html)
+
+---
+
+## 7. Videos de prueba
+
+* **Menú interactivo para el usuario:** https://youtu.be/1JCqFeL09ok?si=3Hs3RjXA8j2LLfJo
+* **Prueba 2:** https://www.youtube.com/watch?v=iGbeoPNbOyE
 
 ---
 
