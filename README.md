@@ -4,7 +4,7 @@ Este repositorio contiene los 2 proyectos desarrollados para  **Organización de
 
 2026-1
 
-## Autoras
+## Autores
 - [Isabella Cadavid Posada]
 - [Isabella Ocampo Sánchez]
 
