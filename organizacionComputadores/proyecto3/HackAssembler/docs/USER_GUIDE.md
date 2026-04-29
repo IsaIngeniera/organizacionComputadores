@@ -90,14 +90,28 @@ javac *.java
 ---
 
 ## Uso
+### 0. Crear un archivo de prueba (Opcional)
+Si no tienes un archivo .asm a la mano, puedes crear uno rápido para probar el programa. Desde la raíz del proyecto (HackAssembler/), crea un archivo llamado Prog.asm con el siguiente contenido:
+// Programa de prueba
+```bash
+@5
+D=A
+@10
+D=D+A
+@0
+M=D
+```
 
 ### 1. Ensamblar un archivo `.asm` → `.hack`
 
 ```bash
 # Desde la carpeta donde se compiló (src/)
 java HackAssembler Prog.asm
+``` 
+Si tienes problemas de rutas, ejecuta el programa siempre desde la raíz del proyecto, indicando que las clases compiladas están en la carpeta src mediante el flag -cp src, con el siguiente comando:
+```bash
+java -cp src HackAssembler Prog.asm
 ```
-
 **Salida:** archivo `Prog.hack` en el mismo directorio, con una instrucción binaria de 16 bits por línea.
 
 Ejemplo:
@@ -113,6 +127,10 @@ java HackAssembler programs/Add.asm
 
 ```bash
 java HackAssembler -d Prog.hack
+```
+Si tienes problemas de rutas, ejecuta el programa siempre desde la raíz del proyecto, indicando que las clases compiladas están en la carpeta src mediante el flag -cp src, con el siguiente comando:
+```bash
+java -cp src HackAssembler -d Prog.hack
 ```
 
 **Salida:** archivo `ProgDis.asm` correspondiente.
