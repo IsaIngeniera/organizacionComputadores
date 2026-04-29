@@ -111,6 +111,7 @@ Cada archivo `.java` tiene su `.md5` asociado. Para verificar: [https://emn178.g
 
 * **Menú interactivo para el usuario:** https://youtu.be/1JCqFeL09ok?si=3Hs3RjXA8j2LLfJo
 * **Prueba 2:** https://www.youtube.com/watch?v=iGbeoPNbOyE
+---
 
 ---
 
