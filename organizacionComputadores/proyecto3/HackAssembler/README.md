@@ -24,6 +24,10 @@ Adicionalmente, incluye un **desensamblador** (`HackDisassembler`) que realiza e
 
 Como extensión propia del curso, el proyecto soporta las instrucciones de desplazamiento de bits `<<` y `>>` tanto en el ensamblador como en el desensamblador.
 
+**NOTA**: Podrás encontrar videos que explican la lógica de este programa en el siguiente archivo:    
+https://docs.google.com/document/d/1sNMs8TpuF0XBDrwYh1IRu5HCtGNMnsC9AKtqtwxkUGo/edit?usp=sharing
+
+
 ---
 
 
